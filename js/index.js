@@ -32,16 +32,24 @@ const insertTaskIntoPage = (text) => {
   )
 }
 
+const tasks = JSON.parse(localStorage.getItem('tasks'))
+
+if (tasks) {
+  tasks.forEach((task) => {
+    insertTaskIntoPage(task)
+  })
+}
+
 const emptyInputText = () => {
   document.getElementById('task-text').value = ''
 }
 
 const saveTask = (txt) => {
   const tasks = JSON.parse(localStorage.getItem('tasks'))
-  if (tasks === null) {
-    localStorage.setItem('tasks', JSON.stringify([txt]))
-  } else {
+  if (tasks) {
     tasks.push(txt)
     localStorage.setItem('tasks', JSON.stringify(tasks))
+  } else {
+    localStorage.setItem('tasks', JSON.stringify([txt]))
   }
 }
